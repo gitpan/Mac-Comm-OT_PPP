@@ -1,0 +1,80 @@
+NAME
+    Mac::Comm::OT_PPP - Interface to Open Transport PPP
+
+SYNOPSIS
+            use Mac::Comm::OT_PPP;
+            $ppp = new Mac::Comm::OT_PPP;
+
+DESCRIPTION
+    This module allows you to do basic operations with OT/PPP, the PPP connection software from
+    Apple Computer designed for use with their Open Transport networking architecture. For more
+    information on Open Transport or OT/PPP, see the Open Transport web site.
+
+    Mac::Launch::Apps is required.
+
+USAGE
+    PPPconnect
+                $ppp->PPPconnect(USER,PASS,ADRS);
+
+        Connect to phone number ADRS as user USER with password PASS.
+
+    PPPdisconnect
+                $ppp->PPPdisconnect;
+
+        Disconnect.
+
+    PPPstatus
+                $hash = $ppp->PPPstatus;
+                foreach $key (keys %{$hash}) {
+                        print "$key: $$hash{$key}\n";
+                }
+
+        Return status:
+
+    RAsb        State of connection
+
+    RAsc        Seconds connected
+
+    RAsr        Seconds remaining
+
+    RAun        User name
+
+    RAsn        Server name
+
+    RAms        Most recent message for connection
+
+    RAbm        Baud rate of connection
+
+    RAbi        Bytes in/received
+
+    RAbo        Bytes out/sent
+
+    RAsp        Connection type (?)
+
+    PPPsavelog
+                $ppp->PPPsavelog(FILE);
+
+        Save log to file of filepath FILE. Operation can take a minute or two if the log is big,
+        and might freeze up your computer while working. Be patient.
+
+VERSION NOTES
+    v.1.1 October 13, 1997
+        Took some code and threw it in a module.
+
+    v.1.0 May 4, 1997
+        Took some code and threw it in a module.
+
+SEE ALSO
+    Open Transport Home Page
+        http://tuvix.apple.com/dev/opentransport
+
+AUTHOR / COPYRIGHT
+    Chris Nandor, 13-Oct-1997
+
+            mailto:pudge@pobox.com
+            http://pudge.net/
+
+    Copyright (c) 1997 Chris Nandor. All rights reserved. This program is free software; you can
+    redistribute it and/or modify it under the same terms as Perl itself. Please see the Perl
+    Artistic License.
+

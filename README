@@ -1,11 +1,12 @@
-May 4, 1997
+October 13, 1997
 
-This is OT_PPP.pm 1.0, a Perl interface to Open Transport/PPP 1.0.
+This is OT_PPP.pm 1.1, a Perl interface to Open Transport/PPP 1.0.
 
 REQUIREMENTS:
 *MacPerl 5.1.1+ (5.1.3 recommended) is REQUIRED for fixed
     AppleEvents library.
 *Open Transport and OT/PPP 1.0.
+*Mac::Apps::Launch is required.
 
 To install it, just drop the file OT_PPP.pm in the directory
 lib:Mac:Comm.  Carefully look over the pod documentation that is 

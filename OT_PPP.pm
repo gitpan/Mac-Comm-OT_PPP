@@ -5,7 +5,7 @@
 #  Interface to OT/PPP (Open Transport PPP)
 #
 #  Created:       Chris Nandor (pudge@pobox.com)         04-May-97
-#  Last Modified: Chris Nandor (pudge@pobox.com)         04-May-97
+#  Last Modified: Chris Nandor (pudge@pobox.com)         13-Oct-97
 #-----------------------------------------------------------------#
 package Mac::Comm::OT_PPP;
 
@@ -22,6 +22,8 @@ Mac::Comm::OT_PPP - Interface to Open Transport PPP
 
 This module allows you to do basic operations with OT/PPP, the PPP connection software from Apple Computer designed for use with their Open Transport networking architecture.  For more information on Open Transport or OT/PPP, see the Open Transport web site.
 
+Mac::Launch::Apps is required.
+
 =head1 USAGE
 
 =over
@@ -36,8 +38,8 @@ use Carp;
 @ISA = qw(Exporter);
 @EXPORT = ();
 #-----------------------------------------------------------------
-$Mac::Comm::OT_PPP::revision = '$Id: OT_PPP.pm,v 1.0 1997/05/04 19:46 EST cnandor Exp $';
-$Mac::Comm::OT_PPP::VERSION  = '1.0';
+$Mac::Comm::OT_PPP::revision = '$Id: OT_PPP.pm,v 1.1 1997/10/13 17:26 EDT cnandor Exp $';
+$Mac::Comm::OT_PPP::VERSION  = '1.1';
 #-----------------------------------------------------------------
 use Mac::AppleEvents;
 #=================================================================
@@ -77,6 +79,8 @@ sub PPPconnect {
 	AEPutParam($be,'RAad','TEXT',$adrs);
 	$rp = AESend($be, kAEWaitReply) || croak $^E;
 	$at = AEGetParamDesc($rp,'errn');
+	AEDisposeDesc $be;
+	AEDisposeDesc $rp;
 	return AEPrint($at) if ($at);
 }
 #-----------------------------------------------------------------
@@ -94,6 +98,8 @@ sub PPPdisconnect {
 	$be = AEBuildAppleEvent('netw','RAdc',typeApplSignature,'MACS',0,0,'') || croak $^E;
 	$rp = AESend($be, kAEWaitReply) || croak $^E;
 	$at = AEGetParamDesc($rp,'errn');
+	AEDisposeDesc $be;
+	AEDisposeDesc $rp;
 	return AEPrint($at) if ($at);
 }
 #-----------------------------------------------------------------
@@ -169,6 +175,8 @@ sub PPPstatus {
 		}
 	}
 
+	AEDisposeDesc $be;
+	AEDisposeDesc $rp;
 	return AEPrint($ar{'errn'}) if ($ar{'errn'});
 	return \%ar;
 }
@@ -190,6 +198,8 @@ sub PPPsavelog {
 	AEPutParam($be,'RAlf','TEXT',$file) if ($file);
 	$rp = AESend($be, kAEWaitReply) || croak $^E;
 	$at = AEGetParamDesc($rp,'errn');
+	AEDisposeDesc $be;
+	AEDisposeDesc $rp;
 	return AEPrint($at) if ($at);
 }
 #-----------------------------------------------------------------#
@@ -201,6 +211,10 @@ __END__
 =head1 VERSION NOTES
 
 =over
+
+=item v.1.1 October 13, 1997
+
+Took some code and threw it in a module.
 
 =item v.1.0 May 4, 1997
 
@@ -220,7 +234,7 @@ http://tuvix.apple.com/dev/opentransport
 
 =head1 AUTHOR / COPYRIGHT
 
-Chris Nandor, 04-May-1997
+Chris Nandor, 13-Oct-1997
 
 	mailto:pudge@pobox.com
 	http://pudge.net/
