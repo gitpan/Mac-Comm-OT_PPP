@@ -1,0 +1,5 @@
+MANIFEST                    This file
+otppp-AE.txt                AppleEvent information (from Frontier)
+otppp.pl                    Test soubroutines
+OT_PPP.pm                   Module / documentation
+README                      Readme file
